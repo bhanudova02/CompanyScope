@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { IoSearch } from "react-icons/io5";
-import companies from "../data/companies.json";
+import axios from "axios";
 
 export function Sidebar({ setCompaniesData }) {
   const locationData = ["Bengaluru", "Mumbai", "Pune", "Noida", "Chennai", "Delhi", "Gurgaon"];
   const industriesData = ["IT Services", "Healthcare", "Banking", "Manufacturing"];
-  const [allCompanies, setAllCompanies] = useState(companies);
+  const [allCompanies, setAllCompanies] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
@@ -14,7 +14,11 @@ export function Sidebar({ setCompaniesData }) {
 
   // Fetch data
   useEffect(() => {
-    setCompaniesData(companies);
+    axios.get("http://localhost:5000/api/companies")
+      .then(res => {
+        setAllCompanies(res.data);
+        setCompaniesData(res.data);
+      });
   }, [setCompaniesData]);
 
   // Filter function
