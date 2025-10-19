@@ -3,7 +3,7 @@ import { FiChevronDown } from "react-icons/fi";
 import { IoSearch } from "react-icons/io5";
 import axios from "axios";
 
-export function Sidebar({ setCompaniesData }) {
+export function Sidebar({ setCompaniesData, setLoading, setIsApiSlow, setApiError }) {
   const locationData = ["Bengaluru", "Mumbai", "Pune", "Noida", "Chennai", "Delhi", "Gurgaon"];
   const industriesData = ["IT Services", "Healthcare", "Banking", "Manufacturing"];
   const [allCompanies, setAllCompanies] = useState([]);
@@ -12,14 +12,30 @@ export function Sidebar({ setCompaniesData }) {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedIndustry, setSelectedIndustry] = useState("");
 
-  // Fetch data
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsApiSlow(true);
+    }, 5000);
+
     axios.get("https://companyscope-api.onrender.com/api/companies")
       .then(res => {
+        clearTimeout(timer);
+        setIsApiSlow(false);
         setAllCompanies(res.data);
         setCompaniesData(res.data);
+      })
+      .catch(err => {
+        clearTimeout(timer);
+        setIsApiSlow(false);
+        setApiError("Error fetching data. Please try again later.");
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, [setCompaniesData]);
+
+    return () => clearTimeout(timer);
+  }, [setCompaniesData, setLoading, setIsApiSlow, setApiError]);
 
   // Filter function
   useEffect(() => {
