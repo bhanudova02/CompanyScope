@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export function ApiSlowMessage() {
-  const [secondsLeft, setSecondsLeft] = useState(20);
+  const [secondsLeft, setSecondsLeft] = useState(45);
 
   useEffect(() => {
     if (secondsLeft <= 0) {
