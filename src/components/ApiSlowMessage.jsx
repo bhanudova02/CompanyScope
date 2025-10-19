@@ -19,7 +19,7 @@ export function ApiSlowMessage() {
       <div className="bg-white p-8 rounded-lg shadow-lg w-[95%] md:w-[60%] lg:w-[40%] text-start">
         <h2 className="text-2xl font-bold mb-4">Server Waking Up</h2>
         <p className="text-lg">
-          Our free backend server is starting. Free-tier servers go to sleep when idle, so it may take around 20 seconds to wake up.
+          Our free backend server is starting. Free-tier servers go to sleep when idle, so it may take around 40 seconds to wake up.
         </p>
         <p className="text-lg mt-2">
           Please be patient, the application will load automatically once ready.
