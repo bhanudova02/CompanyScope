@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
 import { FiChevronDown, FiX } from "react-icons/fi";
 import { IoSearch } from "react-icons/io5";
-import axios from "axios";
+import companies from "../data/companies.json";
 
 export function SearchModal({ setCompaniesData }) {
     const locationData = ["Bengaluru", "Mumbai", "Pune", "Noida", "Chennai", "Delhi", "Gurgaon"];
     const industriesData = ["IT Services", "Healthcare", "Banking", "Manufacturing"];
-    const [allCompanies, setAllCompanies] = useState([]);
+    const [allCompanies, setAllCompanies] = useState(companies);
     const [isOpen, setIsOpen] = useState(false);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedLocation, setSelectedLocation] = useState("");
     const [selectedIndustry, setSelectedIndustry] = useState("");
 
-    // Fetch data
     useEffect(() => {
-        axios.get("http://localhost:5000/api/companies")
-            .then(res => {
-                setAllCompanies(res.data);
-            });
+        setCompaniesData(companies);
     }, []);
 
     // Filter function
