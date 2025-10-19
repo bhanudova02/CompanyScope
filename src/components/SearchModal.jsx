@@ -40,6 +40,9 @@ export function SearchModal({ setCompaniesData }) {
         }
 
         setCompaniesData(filtered);
+
+        // Scroll to top after filter
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }, [searchTerm, selectedLocation, selectedIndustry, allCompanies, setCompaniesData]);
 
     const handleClear = () => {

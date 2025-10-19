@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import { Card } from "./components/Card"
 import { Header } from "./components/Header"
 import { Sidebar } from "./components/Sidebar"
@@ -38,6 +38,10 @@ function App() {
     }, 500);
   };
 
+  const location = useLocation(); // ✅ Get current route path
+  const hideSearchModal = location.pathname === "/help" || location.pathname === "/about-us";
+
+
   return (
     <main className="flex flex-col lg:flex-row h-screen">
       {/* Sidebar */}
@@ -47,9 +51,13 @@ function App() {
       {/* Container Area */}
       <div className=" bg-[#fffefe] flex-1 flex flex-col">
         <Header />
-         <div>
-           <SearchModal setCompaniesData={setCompaniesData} />
-         </div>
+
+        {/* ✅ Conditionally show SearchModal */}
+        {!hideSearchModal && (
+          <div className="block lg:hidden">
+            <SearchModal setCompaniesData={setCompaniesData} />
+          </div>
+        )}
 
         <div id="scrollableDiv" className="flex-1 overflow-y-auto  p-4 relative">
           <Routes>
