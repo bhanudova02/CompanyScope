@@ -14,7 +14,7 @@ export function Sidebar({ setCompaniesData }) {
 
   // Fetch data
   useEffect(() => {
-    axios.get("http://localhost:5000/api/companies")
+    axios.get("https://companyscope-api.onrender.com/api/companies")
       .then(res => {
         setAllCompanies(res.data);
         setCompaniesData(res.data);
